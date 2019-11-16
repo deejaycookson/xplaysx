@@ -1,4 +1,4 @@
-export const COMMANDS = {
+module.exports.COMMANDS = {
     UP:     ['up', 'u'],
     DOWN:   ['down', 'd'],
     L:      ['left', 'l'],

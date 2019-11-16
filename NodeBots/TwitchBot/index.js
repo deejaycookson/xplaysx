@@ -1,7 +1,7 @@
 import * as tmi from 'tmi.js';
 import { BOT_USERNAME, BOT_OAUTH_TOKEN, BOT_CHANNELNAME } from './tokens'
-import { COMMANDS } from './commandTypes'
-import * as commands from './commands'
+import { COMMANDS } from '../../commandTypes'
+import * as commands from '../../commands'
 
 const opts = {
   identity: {

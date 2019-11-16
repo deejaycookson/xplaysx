@@ -1,6 +1,6 @@
 import { BOT_CLIENT_TOKEN } from './tokens'
-import { COMMANDS } from './commandTypes'
-import * as commands from './commands'
+import { COMMANDS } from '../../commandTypes'
+import * as commands from '../../commands'
 import * as Discord from 'discord.js'
 
 const client = new Discord.Client();
