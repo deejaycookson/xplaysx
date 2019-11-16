@@ -4,7 +4,6 @@ let router = express.Router();
 let queue  = [];
 let python = spawn('python', ['keyboard.py']);
 
-
 const inputs = {
     "up": 1,
     "u": 1,
