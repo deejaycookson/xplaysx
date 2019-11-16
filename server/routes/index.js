@@ -25,7 +25,7 @@ if (inputs.hasOwnProperty("token") && inputs.hasOwnProperty("input")) {
 });
 
 router.post('/twilio', (req, res, next) => {
-  console.log(req.body.body);
+  console.log(req);
   addtoqueue(req.body.body,res);
 
 });
