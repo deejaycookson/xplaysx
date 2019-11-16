@@ -1,2 +1,6 @@
-/.idea
+**/.idea
 *.iml
+**/dist
+**/node_modules
+**/config.js
+**/tokens.js
