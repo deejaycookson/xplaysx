@@ -59,6 +59,11 @@ if (inputs.hasOwnProperty("token") && inputs.hasOwnProperty("input")) {
 }
 });
 
+router.post('/twilio', (req, res, next) => {
+  console.log(req.body);
+  res.status(200).send();
+});
+
 function error (res){
   res.status(400).send();
 }
