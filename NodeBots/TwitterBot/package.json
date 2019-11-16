@@ -1,0 +1,15 @@
+{
+  "name": "xplaysx-twitter",
+  "version": "1.0.0",
+  "description": "Twitter bot for xplaysx",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "author": "",
+  "license": "ISC",
+  "dependencies": {
+    "twit": "^2.2.11",
+    "twitter": "^1.7.1"
+  }
+}
