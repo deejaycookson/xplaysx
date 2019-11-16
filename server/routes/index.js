@@ -1,7 +1,7 @@
 import express from 'express';
 import { exec } from 'child_process'
 let router = express.Router();
-let queue=[];
+let queue = [];
 
 const inputs = {
     "up": 1,
@@ -18,7 +18,10 @@ const inputs = {
     "b": 10
 };
 
-exec('sudo apt install visualboyadvance');
+exec('sudo apt install visualboyadvance xdotool', (error, stdout, stderr) => {
+    console.log(error, stdout, stderr);
+});
+
 
 /* GET home page. */
 router.get('/input', (req, res, next) => {
