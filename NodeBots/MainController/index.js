@@ -1,15 +1,35 @@
-const commands = require('./commands');
+const rp = require('request-promise');
 
 const COMMANDS = {
-    UP: ['up', 'u'],
-    DOWN: ['down', 'd'],
-    L: ['left', 'l'],
-    R: ['right', 'r'],
-    START: ['start'],
-    SELECT: ['select', 'sel'],
-    A: ['a'],
-    B: ['b']
+    up: ['up', 'u'],
+    down: ['down', 'd'],
+    l: ['left', 'l'],
+    r: ['right', 'r'],
+    start: ['start'],
+    select: ['select', 'sel'],
+    a: ['a'],
+    b: ['b']
 }
+
+const makeReq = x => {
+    let options = {
+        method: 'POST',
+        uri: 'http://localhost:3000/input',
+        headers: {
+            'Content-Type': 'application/json'
+        },
+        json: true,
+        body: {
+            "input": x,
+            "token": "dansucksass"
+        }
+    };
+    rp(options).then(() => {
+        return x;
+    }).catch(function (err) {
+        console.log(err);
+    });
+};
 
 commandQueue = [];
 
@@ -17,8 +37,7 @@ module.exports.addCommand = (msg) => {
     for (let commandType in COMMANDS) {
         for (let option in COMMANDS[commandType]) {
             if (msg.toLowerCase().startsWith(COMMANDS[commandType][option])) {
-                let commandToRun = Object.keys(commands);
-                commandQueue.push(commands[commandToRun[commandToRun.indexOf(commandType.toString())]]);
+                commandQueue.push(commandType.toString());
             }
         }
     }
@@ -26,9 +45,7 @@ module.exports.addCommand = (msg) => {
 
 let queueRunner = setInterval(() => {
     if (commandQueue.length > 0) {
-        commandQueue[0].then(() => {
-            console.log(commandQueue);
-            commandQueue.shift();
-        });
+        makeReq(commandQueue[0]);
+        commandQueue.shift();
     }
 }, 500);
