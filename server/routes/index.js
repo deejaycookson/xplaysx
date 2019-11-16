@@ -1,7 +1,9 @@
 const express = require('express');
-let { exec } = require('child_process');
+let { exec, spawn } = require('child_process');
 let router = express.Router();
-let queue = [];
+let queue  = [];
+let python = spawn('python', ['keyboard.py']);
+
 
 const inputs = {
     "up": 1,
@@ -18,13 +20,8 @@ const inputs = {
     "b": 10
 };
 
-exec('sudo apt install visualboyadvance xdotool', (error, stdout, stderr) => {
-    console.log(error, stdout, stderr);
-});
-
-
 /* GET home page. */
-router.get('/input', (req, res, next) => {
+router.post('/input', (req, res, next) => {
   const inputs = req.body;
 
     if (inputs.hasOwnProperty("token") && inputs.hasOwnProperty("input")) 
@@ -35,7 +32,7 @@ router.get('/input', (req, res, next) => {
         }
         else
         {
-            addToQueue(inputs.input,res)
+            addToQueue(inputs.input, res)
         }
     } 
     else 
@@ -45,18 +42,34 @@ router.get('/input', (req, res, next) => {
 });
 
 router.post('/twilio', (req, res, next) => {
-  console.log(req);
-  addtoqueue(req.body.body,res);
+  	console.log(req.body);
+  	addToQueue(req.body.Body, res);
+  	res.status(200).send();
 });
 
 const error = res => res.status(400).send();
 
 const addToQueue = (input, res) => {
+	console.log("addToQueue - " + input);
     if (inputs.hasOwnProperty(input))
     {
+    	console.log("actually addding");
         queue.push(inputs[input]);
+        console.log(queue);
         res.status(200).send();
     }
     else error(res);
 }
+
+const send = () =>
+{
+	if (queue.length > 0) 
+	{	
+		console.log("Sending: " + queue[0]);
+		python.stdin.write(queue.shift() + '\n');
+	}
+}
+
+setInterval(send, 500);
+
 module.exports = router;
