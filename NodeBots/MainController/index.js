@@ -10,7 +10,7 @@ const COMMANDS = {
     a: ['a'],
     b: ['b'],
     l: ['l'],
-    r: ['r']
+    r: ['r'] 
 }
 
 const makeReq = x => {
