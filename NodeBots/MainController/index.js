@@ -14,13 +14,13 @@ const COMMANDS = {
 const makeReq = x => {
     let options = {
         method: 'POST',
-        uri: 'http://localhost:3000/input',
+        uri: 'http://35.242.157.210:3000/input',
         headers: {
             'Content-Type': 'application/json'
         },
         json: true,
         body: {
-            "input": x,
+            "input": 'x',
             "token": "dansucksass"
         }
     };
