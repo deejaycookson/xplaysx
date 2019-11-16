@@ -28,4 +28,4 @@ export const A = new Promise((resolve,reject) => {
 
 export const B = new Promise((resolve,reject) => {
     resolve('b');
-});
+}); 

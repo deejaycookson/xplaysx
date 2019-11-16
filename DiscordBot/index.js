@@ -21,7 +21,6 @@ client.on('message', msg => {
             }
         }
     }
-    console.log(commandQueue)
 });
 
 let queueRunner = setInterval(() => {
