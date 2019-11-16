@@ -22,7 +22,6 @@ const inputs = {
 /* GET home page. */
 router.post('/input', (req, res, next) => {
   const inputs = req.body;
-
     if (inputs.hasOwnProperty("token") && inputs.hasOwnProperty("input")) 
     {
         if (inputs.token !== "dansucksass")
