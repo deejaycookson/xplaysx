@@ -3,7 +3,7 @@ var router = express.Router();
 let queue=[];
 
 /* GET home page. */
-router.get('/input', (req, res, next) => {
+router.post('/input', (req, res, next) => {
   const inputs = req.body;
 
 if (inputs.hasOwnProperty("token") && inputs.hasOwnProperty("input")) {
