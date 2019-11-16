@@ -1,0 +1,19 @@
+{
+  "name": "xplaysx",
+  "version": "1.0.0",
+  "description": "xplaysx",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/deejaycookie1/hacknotts.git"
+  },
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/deejaycookie1/hacknotts/issues"
+  },
+  "homepage": "https://github.com/deejaycookie1/hacknotts#readme"
+}
