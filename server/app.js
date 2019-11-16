@@ -1,10 +1,10 @@
-import createError from 'http-errors';
-import express from 'express';
-import path from 'path';
-import cookieParser from 'cookie-parser';
-import logger from 'morgan';
-import fs from 'fs';
-import indexRouter from './routes';
+ const createError = require('http-errors');
+ const express = require('express');
+ const path = require('path');
+ const cookieParser = require('cookie-parser');
+ const logger = require('morgan');
+ const fs = require('fs');
+ const indexRouter = require('./routes');
 
 var app = express();
 
