@@ -3,12 +3,14 @@ const rp = require('request-promise');
 const COMMANDS = {
     up: ['up', 'u'],
     down: ['down', 'd'],
-    l: ['left', 'l'],
-    r: ['right', 'r'],
+    left: ['left'],
+    right: ['right'],
     start: ['start'],
     select: ['select', 'sel'],
     a: ['a'],
-    b: ['b']
+    b: ['b'],
+    l: ['l'],
+    r: ['r'] 
 }
 
 const makeReq = x => {
@@ -20,7 +22,7 @@ const makeReq = x => {
         },
         json: true,
         body: {
-            "input": 'x',
+            "input": x,
             "token": "dansucksass"
         }
     };
