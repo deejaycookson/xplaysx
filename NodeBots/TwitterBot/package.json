@@ -9,6 +9,9 @@
   "author": "",
   "license": "ISC",
   "dependencies": {
+    "pipe": "^1.1.0",
+    "request": "^2.88.0",
+    "request-promise": "^4.2.5",
     "twit": "^2.2.11",
     "twitter": "^1.7.1"
   }
