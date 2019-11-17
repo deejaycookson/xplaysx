@@ -11,6 +11,7 @@ const COMMANDS = {
     b: ['b'],
     l: ['l'],
     r: ['r'],
+    random: ['random', 'rand'],
     anarchy: ['anarchy'],
     democracy: ['democracy']
 }
