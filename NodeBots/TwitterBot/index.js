@@ -1,20 +1,30 @@
 const http = require('request');
-const rp = require('request-promise');
 require('pipe').install()
+const queueController = require('../MainController/index')
+const tokens=require('./tokens');
 
 let options = {
     url: 'https://api.twitter.com/labs/1/tweets/stream/filter?format=detailed',
     headers: {
-        'Authorization': 'Bearer AAAAAAAAAAAAAAAAAAAAACOXAwEAAAAAVi0rUyFJ892lwO27%2FvtBPNw7G9A%3DVmItgu7qrnTzmPyrN7R13ttNvDURPvT4rQMxQ8ZWaR6NQWGjZW'
+        'Authorization': tokens.TWITTERTOKEN
     }
 };
 
 http.get(options).on('response', (res) => {
     res.on('data', function(chunk) {
-        console.log(chunk.toString());
+        try {
+            var data = chunk.toString();
+            var d = JSON.parse(data);
+            var array = d.data.entities.hashtags;
+            console.log(array);
+            array.forEach(l => command(l.tag));
+        }catch(e){
+
+        }
     });
 })
 
-function data(input){
-    
+function command(input){
+    console.log(input);
+    queueController.addCommand(input);
 }
