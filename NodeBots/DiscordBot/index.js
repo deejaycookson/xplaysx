@@ -10,6 +10,10 @@ client.on('ready', () => {
 
 
 client.on('message', msg => {
+    if(msg.content.startsWith('~')){
+        msg.reply("Commands are: up, down, left, right, start, select, l, r, a, b, random. Go to: https://www.twitch.tv/xplaysx.online").delete(5000);
+        return;
+    }
     queueController.addCommand(msg.content);
 });
 
