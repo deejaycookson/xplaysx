@@ -31,22 +31,27 @@ const hash = require('hash-mod')(maps.length)
 
 /* GET home page. */
 router.post('/input', (req, res, next) => {
-  const input = req.body;
-    if (input.hasOwnProperty("token") && input.hasOwnProperty("input")) 
-    {
-        if (input.token !== "dansucksass")
-        {
-            error(res);
-        }
-        else
-        {
-            addToQueue(input.input.toLowerCase(), res)
-        }
-    } 
-    else 
-    {
-        error(res);
-    }
+  	const input = req.body;
+	if (input.hasOwnProperty("token") && input.hasOwnProperty("input")) 
+	{
+	    if (input.token !== "dansucksass")
+	    {
+	        error(res);
+	    }
+	    else
+	    {
+	        addToQueue(input.input.toLowerCase(), res)
+	    }
+	} 
+	else 
+	{
+	    error(res);
+	}
+});
+
+router.post('/change', (req, res, next) => {
+	if (req.body.hasOwnProperty('input'))
+		python.stdin.write(input + '\n');
 });
 
 router.post('/twilio', (req, res, next) => {
