@@ -29,13 +29,27 @@ def sendKey(button):
     time.sleep(keyDelay)
     win32api.keybd_event(keymap[button], 0, win32con.KEYEVENTF_KEYUP, 0)
 
+def changeGame(input):
+    shell = win32com.client.Dispatch("WScript.Shell")
+    shell.SendKeys('+F1')
+    time.sleep(0.2)
+    shell.SendKeys('^o')
+    time.sleep(0.2)
+    shell.SendKeys(input)
+    time.sleep(0.2)
+    shell.SendKeys('{ENTER}')
+    time.sleep(0.2)
+    shell.SendKeys('{F1}')
+
 for line in fileinput.input():
     if line:
-        print(keymap[line[0]])
-        sys.stdout.flush()
-        win = win32gui.FindWindow(None, "VisualBoyAdvance")
-        shell = win32com.client.Dispatch("WScript.Shell")
-        shell.SendKeys('%')
-        win32gui.SetForegroundWindow(win)
-        # win32gui.SetFocus(win)
-        sendKey(line[0])
+        if line.startswith('change', 0, len(line)):
+            changeGame(line[7:len(line)-1])
+        else:
+            print(keymap[line[0]])
+            sys.stdout.flush()
+            win = win32gui.FindWindow(None, "VisualBoyAdvance")
+            shell = win32com.client.Dispatch("WScript.Shell")
+            shell.SendKeys('%')
+            win32gui.SetForegroundWindow(win)
+            sendKey(line[0])

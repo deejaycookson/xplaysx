@@ -5,9 +5,9 @@ let router = express.Router();
 let queue  = [];
 let python = spawn('python', ['keyboard.py']);
 
-import C1_KEY from './tokens.js'
+const tokens = require('../tokens.js')
 const C1_ENDPOINT = "https://sandbox.capitalone.co.uk/developer-services-platform-pr/api/data/accounts/create"
-axios.defaults.headers.common['Authorization'] = C1_KEY;
+axios.defaults.headers.common['Authorization'] = tokens.C1_KEY;
 axios.defaults.headers.common['version'] = "1.0";
 axios.defaults.headers.common['Content-Type'] = "application/json";
 
@@ -31,22 +31,27 @@ const hash = require('hash-mod')(maps.length)
 
 /* GET home page. */
 router.post('/input', (req, res, next) => {
-  const input = req.body;
-    if (input.hasOwnProperty("token") && input.hasOwnProperty("input")) 
-    {
-        if (input.token !== "dansucksass")
-        {
-            error(res);
-        }
-        else
-        {
-            addToQueue(input.input.toLowerCase(), res)
-        }
-    } 
-    else 
-    {
-        error(res);
-    }
+  	const input = req.body;
+	if (input.hasOwnProperty("token") && input.hasOwnProperty("input")) 
+	{
+	    if (input.token !== "dansucksass")
+	    {
+	        error(res);
+	    }
+	    else
+	    {
+	        addToQueue(input.input.toLowerCase(), res)
+	    }
+	} 
+	else 
+	{
+	    error(res);
+	}
+});
+
+router.post('/change', (req, res, next) => {
+	if (req.body.hasOwnProperty('input'))
+		python.stdin.write(input + '\n');
 });
 
 router.post('/twilio', (req, res, next) => {
