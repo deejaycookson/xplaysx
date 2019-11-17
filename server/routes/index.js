@@ -1,8 +1,17 @@
 const express = require('express');
-let { exec, spawn } = require('child_process');
+const axios = require('axios');
+const { exec, spawn } = require('child_process');
 let router = express.Router();
 let queue  = [];
 let python = spawn('python', ['keyboard.py']);
+
+import C1_KEY from './tokens.js'
+const C1_ENDPOINT = "https://sandbox.capitalone.co.uk/developer-services-platform-pr/api/data/accounts/create"
+axios.defaults.headers.common['Authorization'] = C1_KEY;
+axios.defaults.headers.common['version'] = "1.0";
+axios.defaults.headers.common['Content-Type'] = "application/json";
+
+const maps = ["b","up","down","left","right","start","select","l","r","a"];
 
 const inputs = {
     "up": 1,
@@ -16,21 +25,22 @@ const inputs = {
     "l": 7,
     "r": 8,
     "a": 9,
-    "b": 10
+    "b": 0
 };
+const hash = require('hash-mod')(maps.length)
 
 /* GET home page. */
 router.post('/input', (req, res, next) => {
-  const inputs = req.body;
-    if (inputs.hasOwnProperty("token") && inputs.hasOwnProperty("input")) 
+  const input = req.body;
+    if (input.hasOwnProperty("token") && input.hasOwnProperty("input")) 
     {
-        if (inputs.token !== "dansucksass")
+        if (input.token !== "dansucksass")
         {
             error(res);
         }
         else
         {
-            addToQueue(inputs.input, res)
+            addToQueue(input.input.toLowerCase(), res)
         }
     } 
     else 
@@ -40,21 +50,28 @@ router.post('/input', (req, res, next) => {
 });
 
 router.post('/twilio', (req, res, next) => {
-  	console.log(req.body);
-  	addToQueue(req.body.Body, res);
+  	addToQueue(req.body.Body.toLowerCase(), res);
   	res.status(200).send();
 });
 
 const error = res => res.status(400).send();
 
 const addToQueue = (input, res) => {
-	console.log("addToQueue - " + input);
     if (inputs.hasOwnProperty(input))
     {
-    	console.log("actually addding");
         queue.push(inputs[input]);
-        console.log(queue);
         res.status(200).send();
+    }
+    else if (input.toLowerCase() === "random")
+    {
+    	axios.post(C1_ENDPOINT, {"quantity": 1}).then(res => {
+    		console.log(res.data.Accounts[0]);
+    		let input = hash(JSON.stringify(res.data.Accounts[0]));
+    		console.log(input);
+		   	queue.push(input);
+    	}).catch(err => {
+    		console.log(err);
+    	});
     }
     else error(res);
 }
@@ -63,7 +80,7 @@ const send = () =>
 {
 	if (queue.length > 0) 
 	{	
-		console.log("Sending: " + queue[0]);
+		console.log("Sending: " + queue[0] + " == " + maps[queue[0]]);
 		python.stdin.write(queue.shift() + '\n');
 	}
 }
