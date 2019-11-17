@@ -5,9 +5,9 @@ let router = express.Router();
 let queue  = [];
 let python = spawn('python', ['keyboard.py']);
 
-import C1_KEY from './tokens.js'
+const tokens = require('../tokens.js')
 const C1_ENDPOINT = "https://sandbox.capitalone.co.uk/developer-services-platform-pr/api/data/accounts/create"
-axios.defaults.headers.common['Authorization'] = C1_KEY;
+axios.defaults.headers.common['Authorization'] = tokens.C1_KEY;
 axios.defaults.headers.common['version'] = "1.0";
 axios.defaults.headers.common['Content-Type'] = "application/json";
 
